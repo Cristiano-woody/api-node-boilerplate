@@ -1,5 +1,6 @@
 import app from './api/app'
+import { env } from './api/env'
 
-app.listen(3333, () => {
-  console.log('listening on port: 3333 👾 🤖')
+app.listen(env.PORT_API, () => {
+  console.log(`👾listening on port: ${env.PORT_API} 👾`)
 })
