@@ -3,6 +3,11 @@ import { z } from 'zod'
 
 const envSchema = z.object({
   PORT_API: z.coerce.number().default(3333),
+  PG_HOST: z.string(),
+  PG_PORT: z.coerce.number().default(5432),
+  PG_DATABASE: z.string(),
+  PG_USER: z.string(),
+  PG_PASS: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
