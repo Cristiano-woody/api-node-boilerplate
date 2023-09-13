@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +16,9 @@
     "@types/node": "^20.5.9",
     "@types/pg": "^8.10.2",
     "eslint": "^8.49.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vite-tsconfig-paths": "^4.2.1",
+    "vitest": "^0.34.4"
   },
   "dependencies": {
     "@types/dotenv": "^8.2.0",
