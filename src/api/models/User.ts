@@ -1,10 +1,10 @@
 import { randomUUID } from 'crypto'
 
 class User {
-  private name: string
-  private email: string
-  private passwordHash: string
-  private id?: string
+  public name: string
+  public email: string
+  public passwordHash: string
+  public id?: string
   constructor(user: {
     name: string
     email: string
