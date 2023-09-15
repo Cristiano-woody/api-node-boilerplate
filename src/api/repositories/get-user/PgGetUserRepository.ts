@@ -1,12 +1,13 @@
-import User from "../../models/User"
-import PgRepository from "../PgRepository"
-import { Client } from "pg"
+import type User from '../../models/User'
+import PgRepository from '../PgRepository'
 
 class PgGetUserRepository extends PgRepository {
-  constructor() {
+  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
+  constructor () {
     super()
   }
-  async getAllUsers(): Promise<User[]> {
+
+  async getAllUsers (): Promise<User[]> {
     const query = 'SELECT * FROM "user"'
     const result = await super.query(query)
     return result
