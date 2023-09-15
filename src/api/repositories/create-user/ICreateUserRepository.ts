@@ -1,5 +1,5 @@
-import User from "@/api/models/User"
+import type User from '../../models/User'
 
 export interface ICreateUserRepository {
-  CreateUser: (user:User) => Promise<User>
+  CreateUser: (user: User) => Promise<User>
 }
