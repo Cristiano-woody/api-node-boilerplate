@@ -5,7 +5,7 @@ class User {
   public email: string
   public passwordHash: string
   public id?: string
-  constructor(user: {
+  constructor (user: {
     name: string
     email: string
     passwordHash: string
@@ -15,7 +15,7 @@ class User {
     this.email = user.email
     this.passwordHash = user.passwordHash
     this.id = user.id
-    if (!user.id) {
+    if (user.id === null || user.id === undefined) {
       this.id = randomUUID()
     }
   }
