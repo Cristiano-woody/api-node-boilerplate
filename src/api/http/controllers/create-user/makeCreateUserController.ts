@@ -4,7 +4,7 @@ import CreateUserController from './CreateUserController'
 export const makeCreateUserController = (): CreateUserController => {
   const createUserUseCase = makeCreateUserUseCase()
   const createUserUseCaseController = new CreateUserController(
-    createUserUseCase,
+    createUserUseCase
   )
   return createUserUseCaseController
 }
