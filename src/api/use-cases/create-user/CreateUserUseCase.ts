@@ -1,15 +1,21 @@
-import { ICreateUserRepository } from '@/api/repositories/create-user/ICreateUserRepository'
-import { CreateUserUseCaseDTO } from './CreateUserUseCaseDTO'
-import { ICreateUserUseCase } from './ICreateUserUseCase'
-import User from '@/api/models/User'
+import { type ICreateUserRepository } from '../../repositories/create-user/ICreateUserRepository'
+import { type CreateUserUseCaseDTO } from './CreateUserUseCaseDTO'
+import { type ICreateUserUseCase } from './ICreateUserUseCase'
+import User from '../../models/User'
+import { type ICrypto } from '../../helpers/crypto/ICrypto'
 
 class CreateUserUseCase implements ICreateUserUseCase {
-  constructor(private readonly createUserRepository: ICreateUserRepository){}
-  
-  async execute(data: CreateUserUseCaseDTO): Promise<CreateUserUseCaseDTO> {
-    const newUser = new User({name: data.name, email: data.email, passwordHash: data.password })
-    console.log(await this.createUserRepository.CreateUser(newUser))
-    return data
+  constructor (private readonly createUserRepository: ICreateUserRepository, private readonly crypto: ICrypto) {}
+
+  async execute (data: CreateUserUseCaseDTO): Promise<Omit<User, 'passwordHash'>> {
+    const newUser = new User({ name: data.name, email: data.email, passwordHash: await this.crypto.hash(data.password) })
+    const user = await this.createUserRepository.CreateUser(newUser)
+    const userWithoutPassword: Omit<User, 'passwordHash'> = {
+      name: user.name,
+      email: user.email,
+      id: user.id
+    }
+    return userWithoutPassword
   }
 }
 
