@@ -1,8 +1,10 @@
-import PgCreateUserRepository from '@/api/repositories/create-user/PgCreateUserRepository'
+import PgCreateUserRepository from '../../repositories/create-user/PgCreateUserRepository'
 import CreateUserUseCase from './CreateUserUseCase'
+import Crypto from '../../helpers/crypto/Crypto'
 
 export const makeCreateUserUseCase = (): CreateUserUseCase => {
   const createUserRepository = new PgCreateUserRepository()
-  const createUserUseCase = new CreateUserUseCase(createUserRepository)
+  const crypto = new Crypto()
+  const createUserUseCase = new CreateUserUseCase(createUserRepository, crypto)
   return createUserUseCase
 }
