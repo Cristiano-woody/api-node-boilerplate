@@ -1,27 +1,23 @@
-import { Client } from "pg"
-import { env } from "../env"
+import { Client } from 'pg'
+import { env } from '../env/index'
 
 abstract class PgRepository {
-  private _client: Client
-  constructor() {
+  private readonly _client: Client
+  constructor () {
     this._client = new Client({
-      host: "localhost",
-      port: 5432,
-      database: "postgres",
-      user: 'postgres',
-      password: "postgres",
+      host: env.PG_HOST,
+      port: env.PG_PORT,
+      database: env.PG_DATABASE,
+      user: env.PG_USER,
+      password: env.PG_PASS
     })
   }
 
-  async query(sql: string): Promise<any> {
-    this._client.connect()
+  async query (sql: string): Promise<any> {
+    await this._client.connect()
     const result = await this._client?.query(sql)
-    this._client.end()
+    await this._client.end()
     return result
-  }
-
-  async comand(): Promise<void> {
-
   }
 }
 
