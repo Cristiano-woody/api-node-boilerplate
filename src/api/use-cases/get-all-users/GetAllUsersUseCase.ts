@@ -4,8 +4,9 @@ import { type IGetAllUsersUseCase } from './IGetAllUsersUseCase'
 
 class GetAllUsersUseCase implements IGetAllUsersUseCase {
   constructor (private readonly getUserRepository: IGetUserRepository) {}
-  execute (): Promise<User[]> {
-    
+  async execute (): Promise<User[]> {
+    const allUsers = await this.getUserRepository.getAllUsers()
+    return allUsers
   }
 }
 
