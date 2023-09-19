@@ -7,12 +7,12 @@ const envSchema = z.object({
   PG_PORT: z.coerce.number().default(5432),
   PG_DATABASE: z.string(),
   PG_USER: z.string(),
-  PG_PASS: z.string(),
+  PG_PASS: z.string()
 })
 
 const _env = envSchema.safeParse(process.env)
 
-if (_env.success === false) {
+if (!_env.success) {
   console.error('🛑 Invalid environment variable', _env.error.format())
   throw new Error('Invalid environment variable')
 }
