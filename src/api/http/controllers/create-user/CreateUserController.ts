@@ -1,3 +1,4 @@
+import DBError from '../../../errors/DBError'
 import { type ICreateUserUseCase } from '../../../use-cases/create-user/ICreateUserUseCase'
 import { type ICreateUserController } from './ICreateUserController'
 import type { Request, Response } from 'express'
@@ -25,6 +26,9 @@ class CreateUserController implements ICreateUserController {
       })
       return res.status(200).send(user)
     } catch (error) {
+      if (error instanceof DBError) {
+        return res.status(500).send(error.message)
+      }
       return res.status(400).send(error)
     }
   }
