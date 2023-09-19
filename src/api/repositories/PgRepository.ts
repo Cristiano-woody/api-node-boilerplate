@@ -1,5 +1,6 @@
 import { Client } from 'pg'
 import { env } from '../env/index'
+import DBError from '../errors/DBError'
 
 abstract class PgRepository {
   private readonly _client: Client
@@ -14,10 +15,29 @@ abstract class PgRepository {
   }
 
   async query (sql: string): Promise<any> {
-    await this._client.connect()
-    const result = await this._client?.query(sql)
-    await this._client.end()
-    return result
+    try {
+      await this._client.connect()
+      const result = await this._client.query(sql)
+      const resultsJSON = { data: {}, metadata: {} }
+      resultsJSON.data = result.rows.map((r) => Object.assign({}, r))
+      resultsJSON.metadata = result.fields.map((r) => Object.assign({}, r))
+      return resultsJSON
+    } catch (error: any) {
+      throw new DBError(error.message)
+    } finally {
+      await this._client.end()
+    }
+  }
+
+  async command (sql: string): Promise<void> {
+    try {
+      await this._client.connect()
+      await this._client.query(sql)
+    } catch (error: any) {
+      throw new DBError(error.message)
+    } finally {
+      await this._client.end()
+    }
   }
 }
 
