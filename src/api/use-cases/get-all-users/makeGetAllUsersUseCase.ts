@@ -1,8 +1,8 @@
-import PgGetUserRepository from '../../repositories/get-user/PgGetUserRepository'
+import PgUserRepository from '../../repositories/UserRepository/PgUserRepository'
 import GetAllUsersUseCase from './GetAllUsersUseCase'
 
 export const makeGetAllUsersUseCase = (): GetAllUsersUseCase => {
-  const getUserRepository = new PgGetUserRepository()
-  const getAllUsersUseCase = new GetAllUsersUseCase(getUserRepository)
+  const UserRepository = new PgUserRepository()
+  const getAllUsersUseCase = new GetAllUsersUseCase(UserRepository)
   return getAllUsersUseCase
 }
