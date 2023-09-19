@@ -1,4 +1,4 @@
-import type User from '../../models/User'
+import type User from '../../entities/User'
 import { type CreateUserUseCaseDTO } from './CreateUserUseCaseDTO'
 
 export interface ICreateUserUseCase {
