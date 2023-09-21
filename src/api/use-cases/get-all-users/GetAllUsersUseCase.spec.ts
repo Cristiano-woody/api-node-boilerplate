@@ -22,6 +22,6 @@ describe('tests of get all users use case', () => {
     const users = await getAllUsersUseCase.execute()
     expect(users[0]).toHaveProperty('name')
     expect(users[0]).toHaveProperty('id')
-    expect(users[0]).toHaveProperty('passwordHash')
+    expect(users[0]).toHaveProperty('password_hash')
   })
 })
