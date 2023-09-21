@@ -9,15 +9,15 @@ class PgUserRepository extends PgRepository implements IUserRepository {
   }
 
   async createUser (user: User): Promise<User> {
-    const query = `INSERT INTO "users" (id, name, email, password_hash) VALUES ('${user.id}', '${user.name}', '${user.email}', '${user.passwordHash}');`
+    const query = `INSERT INTO "users" (id, name, email, password_hash) VALUES ('${user.id}', '${user.name}', '${user.email}', '${user.password_hash}');`
     await super.command(query)
     return user
   }
 
-  async getAllUsers (): Promise<User[]> {
-    const query = 'SELECT * FROM "users"'
+  async getAllUsers (): Promise<Omit<User[], 'password_hash'>> {
+    const query = 'SELECT id, name, email FROM "users"'
     const result = await super.query(query)
-    return result
+    return result.data
   }
 }
 
