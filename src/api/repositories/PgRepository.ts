@@ -2,6 +2,11 @@ import { Client } from 'pg'
 import { env } from '../env/index'
 import DBError from '../errors/DBError'
 
+interface queryReturn {
+  data: any
+  metadata: any
+}
+
 abstract class PgRepository {
   private readonly _client: Client
   constructor () {
@@ -14,7 +19,7 @@ abstract class PgRepository {
     })
   }
 
-  async query (sql: string): Promise<any> {
+  async query (sql: string): Promise<queryReturn> {
     try {
       await this._client.connect()
       const result = await this._client.query(sql)
