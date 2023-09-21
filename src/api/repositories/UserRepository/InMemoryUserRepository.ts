@@ -12,6 +12,16 @@ class InMemoryUserRepository implements IUserRepository {
   async getAllUsers (): Promise<User[]> {
     return this.users
   }
+
+  async getUserByID (userId: string): Promise<User | null> {
+    const user = this.users.map((usr: User) => {
+      if (usr.id === userId) {
+        return usr
+      }
+      return null
+    })
+    return user[0]
+  }
 }
 
 export default InMemoryUserRepository
