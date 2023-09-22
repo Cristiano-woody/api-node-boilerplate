@@ -19,6 +19,11 @@ class PgUserRepository extends PgRepository implements IUserRepository {
     const result = await super.query(query)
     return result.data
   }
+
+  async getUserByID (userID: string): Promise<User> {
+    const user = await super.query(`SELECT id, name, email, password_hash FROM users WHERE id = '${userID};`)
+    return user.data
+  }
 }
 
 export default PgUserRepository
