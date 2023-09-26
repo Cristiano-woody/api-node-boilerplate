@@ -21,8 +21,13 @@ class PgUserRepository extends PgRepository implements IUserRepository {
   }
 
   async getUserByID (userID: string): Promise<User> {
-    const user = await super.query(`SELECT id, name, email, password_hash FROM users WHERE id = '${userID};`)
+    const user = await super.query(`SELECT id, name, email, password_hash FROM users WHERE id = '${userID}';`)
     return user.data
+  }
+
+  async deleteUserByID (userID: string): Promise<string> {
+    await super.command(`DELETE FROM users WHERE id = ${userID};`)
+    return userID
   }
 }
 
