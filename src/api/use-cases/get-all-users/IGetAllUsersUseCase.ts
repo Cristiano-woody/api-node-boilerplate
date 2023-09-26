@@ -1,5 +1,5 @@
 import type User from '../../entities/User'
 
 export interface IGetAllUsersUseCase {
-  execute: () => Promise<User[]>
+  execute: () => Promise<Omit<User[], 'password_hash'>>
 }
