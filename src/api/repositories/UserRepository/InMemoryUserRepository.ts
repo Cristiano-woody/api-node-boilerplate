@@ -22,6 +22,13 @@ class InMemoryUserRepository implements IUserRepository {
     })
     return user[0]
   }
+
+  async deleteUserByID (userID: string): Promise<string> {
+    const users = this.users.filter(user => user.id !== userID)
+    this.users = users
+
+    return userID
+  }
 }
 
 export default InMemoryUserRepository
