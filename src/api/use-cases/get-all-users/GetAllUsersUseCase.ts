@@ -4,7 +4,7 @@ import { type IGetAllUsersUseCase } from './IGetAllUsersUseCase'
 
 class GetAllUsersUseCase implements IGetAllUsersUseCase {
   constructor (private readonly getUserRepository: IUserRepository) {}
-  async execute (): Promise<User[]> {
+  async execute (): Promise<Omit<User[], 'password_hash'>> {
     const allUsers = await this.getUserRepository.getAllUsers()
     return allUsers
   }
