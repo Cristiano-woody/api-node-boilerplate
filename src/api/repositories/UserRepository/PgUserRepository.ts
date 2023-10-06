@@ -29,6 +29,10 @@ class PgUserRepository extends PgRepository implements IUserRepository {
     await super.command(`DELETE FROM users WHERE id = ${userID};`)
     return userID
   }
+
+  async updateUserRepository (user: User): Promise<void> {
+    await super.command(`UPDATE users SET name = '${user.name}' email = '${user.email}' password_hash = '${user.password_hash}' WHERE id = '${user.id};`)
+  }
 }
 
 export default PgUserRepository
