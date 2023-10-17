@@ -9,8 +9,8 @@ class PgUserRepository extends PgRepository implements IUserRepository {
   }
 
   async createUser (user: User): Promise<User> {
-    const query = `INSERT INTO "users" (id, name, email, password_hash) VALUES ('${user.id}', '${user.name}', '${user.email}', '${user.password_hash}');`
-    await super.command(query)
+    const query = 'INSERT INTO "users" (id, name, email, password_hash) VALUES ($1, $2, $3, $4);'
+    await super.command(query, [user.id, user.name, user.email, user.password_hash])
     return user
   }
 
@@ -26,12 +26,12 @@ class PgUserRepository extends PgRepository implements IUserRepository {
   }
 
   async deleteUserByID (userID: string): Promise<string> {
-    await super.command(`DELETE FROM users WHERE id = ${userID};`)
+    await super.command('DELETE FROM users WHERE id = $1;', [userID])
     return userID
   }
 
-  async updateUserRepository (user: User): Promise<void> {
-    await super.command(`UPDATE users SET name = '${user.name}' email = '${user.email}' password_hash = '${user.password_hash}' WHERE id = '${user.id};`)
+  async updateUser (user: User): Promise<void> {
+    await super.command('UPDATE users SET name = $2 = $3 password_hash = $4 WHERE id = $5;', [user.name, user.email, user.password_hash, user.id])
   }
 }
 
