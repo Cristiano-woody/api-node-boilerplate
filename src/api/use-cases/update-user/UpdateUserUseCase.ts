@@ -20,7 +20,7 @@ class UpdateUserUseCase implements IUpdateUserUseCase {
     if (data.password !== undefined && data.password !== null) {
       user.password_hash = await this.crypto.hash(data.password)
     }
-    await this.userRepository.updateUserRepository(user)
+    await this.userRepository.updateUser(user)
     return user
   }
 }
