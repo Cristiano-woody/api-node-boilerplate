@@ -11,7 +11,7 @@ class DeleteUserController implements IDeleteUserController {
     const requestSchema = z.object({
       id: z.string()
     })
-    const ValidRequest = requestSchema.safeParse(req.params.id)
+    const ValidRequest = requestSchema.safeParse(req.params)
     if (!ValidRequest.success) {
       return res.status(400).json(ValidRequest.error)
     }
