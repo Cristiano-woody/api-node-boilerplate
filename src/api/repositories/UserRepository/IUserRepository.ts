@@ -5,5 +5,5 @@ export interface IUserRepository {
   getAllUsers: () => Promise<Omit<User[], 'password_hash'>>
   getUserByID: (userId: string) => Promise<User | null>
   deleteUserByID: (userID: string) => Promise<string>
-  updateUserRepository: (user: User) => Promise<void>
+  updateUser: (user: User) => Promise<void>
 }
