@@ -16,11 +16,11 @@ abstract class PgRepository {
     password: env.PG_PASS
   }
 
-  async query (sql: string): Promise<queryReturn> {
+  async query (sql: string, bindings: any[]): Promise<queryReturn> {
     const client = new Client(this.db_config)
     try {
       await client.connect()
-      const result = await client.query(sql)
+      const result = await client.query(sql, bindings)
       const resultsJSON = { data: {}, metadata: {} }
       resultsJSON.data = result.rows.map((r) => Object.assign({}, r))
       resultsJSON.metadata = result.fields.map((r) => Object.assign({}, r))
@@ -32,11 +32,11 @@ abstract class PgRepository {
     }
   }
 
-  async command (sql: string, rows: any[]): Promise<void> {
+  async command (sql: string, bindings: any[]): Promise<void> {
     const client = new Client(this.db_config)
     try {
       await client.connect()
-      await client.query(sql, rows)
+      await client.query(sql, bindings)
     } catch (error: any) {
       throw new DBError(error.message)
     } finally {
