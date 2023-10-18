@@ -31,7 +31,7 @@ class PgUserRepository extends PgRepository implements IUserRepository {
   }
 
   async updateUser (user: User): Promise<void> {
-    await super.command('UPDATE users SET name = $2 = $3 password_hash = $4 WHERE id = $5;', [user.name, user.email, user.password_hash, user.id])
+    await super.command('UPDATE users SET name = $1, email = $2, password_hash = $3 WHERE id = $4;', [user.name, user.email, user.password_hash, user.id])
   }
 }
 
