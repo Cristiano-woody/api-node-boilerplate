@@ -1,7 +1,7 @@
 import { type Request, type Response, Router } from 'express'
 import { makeCreateUserController } from '../controllers/create-user/makeCreateUserController'
 import { makeGetAllUsersController } from '../controllers/get-all-users/makeGetAllUsersController'
-import { makeDeleteUserController } from '../controllers/delete-user/makeDeleteUserController'
+import { makeDeleteUserController } from '../controllers/delete-user-by-id/makeDeleteUserController'
 
 const userRouter = Router()
 

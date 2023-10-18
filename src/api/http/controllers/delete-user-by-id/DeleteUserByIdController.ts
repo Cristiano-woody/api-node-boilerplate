@@ -1,10 +1,10 @@
 import DBError from '../../../errors/DBError'
 import type { Request, Response } from 'express'
 import { z } from 'zod'
-import { type IDeleteUserController } from './IDeleteUserController'
+import { type IDeleteUserByIdController } from './IDeleteUserByIdController'
 import { type IDeleteUserByIDUseCase } from '../../../use-cases/delete-user-by-id/IDeleteUserByIDUseCase'
 
-class DeleteUserController implements IDeleteUserController {
+class DeleteUserByIdController implements IDeleteUserByIdController {
   constructor (private readonly deleteUserByIDUseCase: IDeleteUserByIDUseCase) {}
 
   public async handle (req: Request, res: Response): Promise<Response> {
@@ -28,4 +28,4 @@ class DeleteUserController implements IDeleteUserController {
   }
 }
 
-export default DeleteUserController
+export default DeleteUserByIdController
