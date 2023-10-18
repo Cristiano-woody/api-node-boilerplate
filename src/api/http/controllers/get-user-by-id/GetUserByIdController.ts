@@ -3,6 +3,7 @@ import type { Request, Response } from 'express'
 import { z } from 'zod'
 import { type IGetUserByIDUseCase } from '../../../use-cases/get-user-by-id/IGetUserByIDUseCase'
 import { type IGetUserByIdController } from './IGetUserByIdController'
+import type User from '../../../entities/User'
 
 class GetUserByIdController implements IGetUserByIdController {
   constructor (private readonly getUserById: IGetUserByIDUseCase) {}
@@ -18,7 +19,12 @@ class GetUserByIdController implements IGetUserByIdController {
 
     try {
       const user = await this.getUserById.execute(req.params.id)
-      return res.status(200).send(user)
+      const userWithoutPassword: Omit<User, 'password_hash'> = {
+        id: user.id,
+        name: user.name,
+        email: user.email
+      }
+      return res.status(200).send(userWithoutPassword)
     } catch (error) {
       if (error instanceof DBError) {
         return res.status(500).send(error.message)
