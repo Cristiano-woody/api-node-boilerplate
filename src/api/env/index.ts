@@ -7,7 +7,8 @@ const envSchema = z.object({
   PG_PORT: z.coerce.number().default(5432),
   PG_DATABASE: z.string(),
   PG_USER: z.string(),
-  PG_PASS: z.string()
+  PG_PASS: z.string(),
+  JWT_PRIVATE_KEY: z.string().default('123')
 })
 
 const _env = envSchema.safeParse(process.env)
