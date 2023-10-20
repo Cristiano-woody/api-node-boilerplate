@@ -13,10 +13,12 @@ class UserLoginUseCase implements IUserLoginUseCase {
     if (user === null || user === undefined) {
       throw new InvalidCredentialsError('Invalid email or password.')
     }
+
     const passwordMatch = await this.crypto.compare(password, user.password_hash)
     if (!passwordMatch) {
       throw new InvalidCredentialsError('Invalid email or password.')
     }
+
     return {
       token: this.Token.generate(user)
     }
