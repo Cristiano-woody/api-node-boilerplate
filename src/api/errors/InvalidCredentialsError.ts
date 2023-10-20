@@ -1,6 +1,6 @@
 class InvalidCredentialsError extends Error {
-  constructor () {
-    super('Invalid Credentials Error.')
+  constructor (message: string) {
+    super(`Invalid Credentials Error: ${message}`)
   }
 }
 

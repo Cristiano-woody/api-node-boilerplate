@@ -3,6 +3,7 @@ import { type IUserLoginController } from './IUserLoginController'
 import { z } from 'zod'
 import DBError from '../../../errors/DBError'
 import type { Request, Response } from 'express'
+import InvalidCredentialsError from '../../../errors/InvalidCredentialsError'
 
 class UserLogincontroller implements IUserLoginController {
   constructor (private readonly userLogin: IUserLoginUseCase) {}
@@ -23,6 +24,9 @@ class UserLogincontroller implements IUserLoginController {
     } catch (error) {
       if (error instanceof DBError) {
         return res.status(500).send(error.message)
+      }
+      if (error instanceof InvalidCredentialsError) {
+        return res.status(404).send({ error: error.message })
       }
       return res.status(400).send(error)
     }
