@@ -3,6 +3,7 @@ import type { Request, Response } from 'express'
 import { z } from 'zod'
 import { type IUpdateUserController } from './IUpdateUserController'
 import { type IUpdateUserUseCase } from '../../../use-cases/update-user/IUpdateUserUseCase'
+import UserNotFoundError from '../../../errors/UserNotFoundError'
 
 class UpdateUserController implements IUpdateUserController {
   constructor (private readonly updateUser: IUpdateUserUseCase) {}
@@ -27,6 +28,9 @@ class UpdateUserController implements IUpdateUserController {
     } catch (error) {
       if (error instanceof DBError) {
         return res.status(500).send(error.message)
+      }
+      if (error instanceof UserNotFoundError) {
+        return res.status(404).send({ error: error.message })
       }
       return res.status(400).send(error)
     }
