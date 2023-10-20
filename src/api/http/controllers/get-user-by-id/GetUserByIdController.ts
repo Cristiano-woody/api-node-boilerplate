@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { type IGetUserByIDUseCase } from '../../../use-cases/get-user-by-id/IGetUserByIDUseCase'
 import { type IGetUserByIdController } from './IGetUserByIdController'
 import type User from '../../../entities/User'
+import UserNotFoundError from '../../../errors/UserNotFoundError'
 
 class GetUserByIdController implements IGetUserByIdController {
   constructor (private readonly getUserById: IGetUserByIDUseCase) {}
@@ -28,6 +29,9 @@ class GetUserByIdController implements IGetUserByIdController {
     } catch (error) {
       if (error instanceof DBError) {
         return res.status(500).send(error.message)
+      }
+      if (error instanceof UserNotFoundError) {
+        return res.status(404).json({ error: error.message })
       }
       return res.status(400).send(error)
     }
